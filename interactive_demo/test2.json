@@ -1,0 +1,31 @@
+[
+    {
+      "ProductID": 1,
+      "ProductName": "Apple",
+      "Category": "Fruits",
+      "Price": 1.2,
+      "InStock": true
+    },
+    {
+      "ProductID": 2,
+      "ProductName": "Banana",
+      "Category": "Fruits",
+      "Price": 0.8,
+      "InStock": true
+    },
+    {
+      "ProductID": 3,
+      "ProductName": "Cherry",
+      "Category": "Fruits",
+      "Price": 2.5,
+      "InStock": false
+    },
+    {
+      "ProductID": 4,
+      "ProductName": "Tomato",
+      "Category": "Vegetables",
+      "Price": 1.1,
+      "InStock": true
+    }
+  ]
+  
