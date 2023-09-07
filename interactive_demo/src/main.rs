@@ -47,7 +47,7 @@ fn main() {
             if selections.contains(&i) {
                 new_json_data.insert(
                     key.clone(),
-                    to_value(sha256::digest(value.clone().to_string())).unwrap(),
+                    to_value(digest(value.clone().to_string())).unwrap(),
                 );
             } else {
                 new_json_data.insert(key.clone(), value.clone());
