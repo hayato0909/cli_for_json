@@ -1,6 +1,7 @@
 use clap::{App, Arg};
 use dialoguer::{theme::ColorfulTheme, MultiSelect};
-use serde_json::{Value, json, Map};
+use serde_json::{json, to_value, Map, Value};
+use sha256::digest;
 use std::fs;
 
 fn main() {
@@ -32,20 +33,24 @@ fn main() {
     }
 
     let selections = MultiSelect::with_theme(&ColorfulTheme::default())
-        .with_prompt("Select the columns you want to keep")
+        .with_prompt("Select the columns you want to sha256 hash")
         .items(&map_keys)
         .interact()
         .unwrap();
 
     let mut new_json_data = Map::new();
     if let Value::Object(ref map) = json_data {
-        for index in selections {
-            if let Some(key) = map_keys.get(index) {
-                if let Some(value) = map.get(key) {
-                    // output for debug
-                    println!("Adding key: {}, value: {}", key, value);
-                    new_json_data.insert(key.clone(), value.clone());
-                }
+        for i in 0..=(map_keys.len() - 1) {
+            let key = map_keys.get(i).unwrap();
+            let value = map.get(key).unwrap();
+
+            if selections.contains(&i) {
+                new_json_data.insert(
+                    key.clone(),
+                    to_value(sha256::digest(value.clone().to_string())).unwrap(),
+                );
+            } else {
+                new_json_data.insert(key.clone(), value.clone());
             }
         }
     }
